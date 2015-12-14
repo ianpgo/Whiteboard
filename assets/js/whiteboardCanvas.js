@@ -32,7 +32,6 @@ $(function(){
 	var socket = io.connect(url);
 
 	socket.on('moving', function (data) {
-		console.log('ok got it')
 		if(! (data.id in clients)){
 			// a new user has come online. create a cursor for them
 			cursors[data.id] = $('<div class="cursor">').appendTo('#cursors');
@@ -80,7 +79,6 @@ $(function(){
 				'drawing': drawing,
 				'id': id
 			});
-			console.log('emitted')
 			lastEmit = $.now();
 		}
 
