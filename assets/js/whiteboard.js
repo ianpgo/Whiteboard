@@ -1,13 +1,28 @@
 $(function() {
+	//create canvas variables for when we go to the next question
+	var canvas = $('#paper')
+	var ctx = canvas[0].getContext('2d');
+	var socket = io.connect(url);
+
+	// The URL of your web server (the port is set in app.js)
+	var url = 'http://whiteboard-iango.rhcloud.com/';
+
 	$('#submit').click(function(e) {
 		e.preventDefault();
 		putQuestion();
+		$('#myModal').modal('hide');
 		return false;
+	})
+
+	$('#questionClose').click(function(e){
+		$('#question').val('');
 	})
 
 	$("#nameForm").submit(function(e) {
 		e.preventDefault();
-		var username = $('#username').val();
+		var username = $('#username_input').val();
+		storeName(username);
+		storeTA();
 		$.ajax({
 			url: 'home',
 			type: 'PUT',
@@ -19,20 +34,39 @@ $(function() {
 	})
 
 	$("#nextInQueue").click(function(e){
+		//clear the canvas
+		clearCanvas();
+		//move to next question in queue
 		nextInQueue();
 	})
+
+	if (window.location.pathname == "/home") {
+		checkTA();
+	};
+
+	function clearCanvas() {
+    	ctx.beginPath();
+	    ctx.fillStyle = "#F4F4F8";
+	    ctx.rect(0, 0, 750, 600);
+	    ctx.fill();
+	    ctx.closePath();
+	    socket.emit('clear')
+	  }
+
+
 })
+
 
 function putQuestion(){
 	var question = $('#question').val();
 	var callID = $('#my-id').text();
-	// var photo = $('#')
-	console.log('here in jquery');
+	var name = getName();
+
 	$.ajax({
-		url: 'question/create?text='+question+'&callID='+callID,
+		url: 'question/create?text='+question+'&callID='+callID+'&name='+name,
 		type: 'PUT',
 		success: function(result) {
-				
+			$('#question').val('');	
 		}
 	})
 }
@@ -116,3 +150,27 @@ function nextInQueue(){
 	})
 }
 
+function checkTA(){
+	var is_ta = sessionStorage.getItem("is_ta");
+	if (is_ta == "false"){
+		$("#nextInQueue").hide();
+	}
+}
+
+function storeTA(){
+	var is_ta = $("#ta").prop('checked');
+	sessionStorage.setItem("is_ta", is_ta);
+}
+
+function storeName(username){
+	sessionStorage.setItem("username", username);
+}
+
+function getName(){
+	var tempUsername = sessionStorage.getItem("username");
+	if (tempUsername == null){
+		return "STUDENT";
+	}else{
+		return tempUsername;
+	}
+}

@@ -10,6 +10,7 @@
   <!-- CodeMirror and its JavaScript mode file -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.2.0/codemirror.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.2.0/mode/javascript/javascript.js"></script>
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.2.0/codemirror.css" />
 
   <!-- Firepad -->
@@ -83,7 +84,7 @@
                         <!-- List of questions -->
                         <tr ng-repeat="question in questions">
                             <td>
-                            <p><strong> STUDENT (5:23 PM) </strong><p>
+                            <p><strong> {{question.name}} ({{question.createdAt}}) </strong><p>
                             <p>
                             <span>{{question.text}}</span></p>
                             </td>
