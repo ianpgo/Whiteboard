@@ -1,21 +1,6 @@
 {
   "data": {
-    "question": [
-      {
-        "text": "two",
-        "callID": "mep48g4scyccv7vi",
-        "createdAt": "2015-12-02T00:49:13.502Z",
-        "updatedAt": "2015-12-02T00:49:13.502Z",
-        "id": 1243
-      },
-      {
-        "text": "test?",
-        "callID": "",
-        "createdAt": "2015-12-14T23:19:09.733Z",
-        "updatedAt": "2015-12-14T23:19:09.733Z",
-        "id": 1244
-      }
-    ]
+    "question": []
   },
   "schema": {
     "question": {
@@ -35,7 +20,7 @@
   },
   "counters": {
     "question": {
-      "id": 1244
+      "id": 1245
     }
   }
 }
