@@ -40,7 +40,6 @@ $(function() {
 		nextInQueue();
 	})
 
-
 	if (window.location.pathname == "/home") {
 		checkTA();
 	};
